@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { supabaseClient } from '@/lib/supabaseClient.ts'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <main>
