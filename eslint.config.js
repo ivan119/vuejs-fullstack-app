@@ -11,14 +11,14 @@ export default defineConfigWithVueTs([
 
   {
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/database/**', '**/supabase/**'],
   },
 
   // Vue recommended config
   ...pluginVue.configs['flat/recommended'],
 
-  // ✅ FIX: use as an object (not spread)
-  vueTsConfigs.recommendedTypeChecked,
+  // Use lighter, non type-checked rules to reduce noise while developing
+  vueTsConfigs.recommended,
 
   // Your custom rules
   {
