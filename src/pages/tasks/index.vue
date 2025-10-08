@@ -1,20 +1,31 @@
 <script setup lang="ts">
 import { supabaseClient } from '@/lib/supabaseClient.ts'
+import { onBeforeMount, ref } from 'vue'
 import type { Tables } from '../../../database/types.ts'
-import { ref } from 'vue'
+import DataTable from '@/components/ui/data-table/DataTable.vue'
+import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
+const { columns, setColumns } = useDataTableHeaders<'tasks'>()
 const tasks = ref<Tables<'tasks'>[] | null>(null)
 
-;(async () => {
-  const { data, error } = await supabaseClient.from('tasks').select()
-  if (error) console.log(error)
+const blacklist = ['id', 'created_at', 'description'] as string[]
+const isLoading = ref(true)
+const getData = async () => {
+  isLoading.value = true
+  const { data } = await supabaseClient.from('tasks').select()
   tasks.value = data
-})()
+  isLoading.value = false
+}
+
+onBeforeMount(async () => {
+  await getData()
+  if (tasks.value?.length) setColumns(tasks.value, blacklist)
+})
 </script>
 
 <template>
-  <h1>Tasks View</h1>
-  <RouterLink to="/">Go to HomeView</RouterLink>
-  <ul>
-    <li v-for="task in tasks" :key="task.id">{{ task.name }}</li>
-  </ul>
+  <div>
+    <div v-if="isLoading">⏳ Loading tasks...</div>
+    <DataTable v-else-if="tasks" :columns="columns" :data="tasks" />
+    <div v-else>No tasks found.</div>
+  </div>
 </template>

@@ -1,20 +1,30 @@
 <script setup lang="ts">
 import { supabaseClient } from '@/lib/supabaseClient.ts'
 import type { Tables } from '../../../database/types.ts'
-import { ref } from 'vue'
+import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
+import { onBeforeMount, ref } from 'vue'
+import DataTable from '@/components/ui/data-table/DataTable.vue'
 const projects = ref<Tables<'projects'>[] | null>(null)
-
-;(async () => {
+const { setColumns, columns } = useDataTableHeaders<'projects'>()
+const isLoading = ref(false)
+const getProjects = async () => {
+  isLoading.value = true
   const { data, error } = await supabaseClient.from('projects').select()
   if (error) console.log(error)
+  isLoading.value = false
   projects.value = data
-})()
+}
+
+onBeforeMount(async () => {
+  await getProjects()
+  if (projects.value) setColumns(projects.value, ['id', 'created_at', 'slug'])
+})
 </script>
 
 <template>
-  <h1>Projects View</h1>
-  <RouterLink to="/">Go to HomeView</RouterLink>
-  <ul>
-    <li v-for="project in projects" :key="project.id">{{ project.name }}</li>
-  </ul>
+  <div>
+    <div v-if="isLoading">⏳ Loading projects...</div>
+    <DataTable v-else-if="projects" :columns="columns" :data="projects" />
+    <div v-else>No tasks found.</div>
+  </div>
 </template>
