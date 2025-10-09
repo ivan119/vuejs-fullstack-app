@@ -2,6 +2,9 @@
 import { supabaseClient } from '@/lib/supabaseClient.ts'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
 import type { Tables } from '../../../database/types.ts'
+
+usePageStore().pageData.title = 'Tasks'
+
 const { columns, setColumns } = useDataTableHeaders()
 const tasks = ref<Tables<'tasks'>[] | null>(null)
 

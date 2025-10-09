@@ -5,6 +5,7 @@ import type { Tables } from '../../../database/types.ts'
 const projects = ref<Tables<'projects'>[] | null>(null)
 const { setColumns, columns } = useDataTableHeaders()
 const isLoading = ref(false)
+usePageStore().pageData.title = 'Projects'
 const getProjects = async () => {
   isLoading.value = true
   try {
