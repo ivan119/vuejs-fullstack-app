@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { supabaseClient } from '@/lib/supabaseClient.ts'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-import type { QueryData } from '@supabase/supabase-js'
+import { projectsWithProjectsQuery, type Projects } from '@/utils/supaQueries'
 const isLoading = ref(false)
-const projectsWithProjectsQuery = supabaseClient.from('projects').select()
-type ProjectsWithProjects = QueryData<typeof projectsWithProjectsQuery>
-const projects = ref<ProjectsWithProjects | null>(null)
-const { setColumns, columns } = useDataTableHeaders<ProjectsWithProjects[number]>()
+const projects = ref<Projects | null>(null)
+const { setColumns, columns } = useDataTableHeaders<Projects[number]>()
 
 usePageStore().pageData.title = 'Projects'
 const getProjects = async () => {
