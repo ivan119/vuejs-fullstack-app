@@ -9,7 +9,7 @@ const isLoading = ref(false)
 const getProjects = async () => {
   isLoading.value = true
   try {
-    const { data, error } = await supabaseClient.from('projectss').select()
+    const { data, error } = await supabaseClient.from('projects').select()
     if (error) console.log(error)
     projects.value = data
   } catch (error) {
