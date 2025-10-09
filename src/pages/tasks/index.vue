@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { supabaseClient } from '@/lib/supabaseClient.ts'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-import type { Tables } from '../../../database/types.ts'
+import type { QueryData } from '@supabase/supabase-js'
 
-usePageStore().pageData.title = 'Tasks'
+usePageStore().pageData.title = 'My Tasks'
+const taskWithProjectsQuery = supabaseClient.from('tasks').select(` *, projects(id, name, slug)`)
+type TasksWithProjects = QueryData<typeof taskWithProjectsQuery>
+const { columns, setColumns } = useDataTableHeaders<TasksWithProjects[number]>()
+const tasks = ref<TasksWithProjects | null>(null)
 
-const { columns, setColumns } = useDataTableHeaders()
-const tasks = ref<Tables<'tasks'>[] | null>(null)
-
-const blacklist = ['id', 'created_at', 'description'] as string[]
+const blacklist = ['id', 'created_at', 'description', 'project_id'] as string[]
 const isLoading = ref(true)
 const getData = async () => {
   isLoading.value = true
   try {
-    const { data } = await supabaseClient.from('tasks').select()
+    const { data } = await taskWithProjectsQuery
     tasks.value = data
   } catch (error) {
     console.log(error)
