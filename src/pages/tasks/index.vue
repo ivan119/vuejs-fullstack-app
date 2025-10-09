@@ -3,7 +3,7 @@ import { supabaseClient } from '@/lib/supabaseClient.ts'
 import type { Tables } from '../../../database/types.ts'
 import DataTable from '@/components/ui/data-table/DataTable.vue'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-const { columns, setColumns } = useDataTableHeaders<'tasks'>()
+const { columns, setColumns } = useDataTableHeaders()
 const tasks = ref<Tables<'tasks'>[] | null>(null)
 
 const blacklist = ['id', 'created_at', 'description'] as string[]
@@ -13,7 +13,8 @@ const getData = async () => {
   try {
     const { data } = await supabaseClient.from('tasks').select()
     tasks.value = data
-  } catch (e) {
+  } catch (error) {
+    console.log(error)
   } finally {
     isLoading.value = false
   }
