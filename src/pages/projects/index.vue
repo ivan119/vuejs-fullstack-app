@@ -21,7 +21,7 @@ const getProjects = async () => {
 
 onBeforeMount(async () => {
   await getProjects()
-  if (projects.value) setColumns(projects.value, ['id', 'created_at', 'slug'])
+  if (projects.value) setColumns(projects.value, ['id', 'created_at', 'slug'], 'projects')
 })
 </script>
 

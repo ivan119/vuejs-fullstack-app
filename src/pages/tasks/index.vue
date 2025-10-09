@@ -22,7 +22,7 @@ const getData = async () => {
 
 onBeforeMount(async () => {
   await getData()
-  if (tasks.value?.length) setColumns(tasks.value, blacklist)
+  if (tasks.value?.length) setColumns(tasks.value, blacklist, 'tasks')
 })
 </script>
 
