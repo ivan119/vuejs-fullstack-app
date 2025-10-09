@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -11,6 +11,9 @@ import { VueRouterAutoImports } from 'unplugin-vue-router'
 export default defineConfig({
   plugins: [
     VueRouter(),
+    Components({
+      dts: true,
+    }),
     AutoImport({
       // targets to transform
       include: [
