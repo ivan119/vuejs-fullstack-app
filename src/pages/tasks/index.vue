@@ -11,9 +11,13 @@ const blacklist = ['id', 'created_at', 'description'] as string[]
 const isLoading = ref(true)
 const getData = async () => {
   isLoading.value = true
-  const { data } = await supabaseClient.from('tasks').select()
-  tasks.value = data
-  isLoading.value = false
+  try {
+    const { data } = await supabaseClient.from('tasks').select()
+    tasks.value = data
+  } catch (e) {
+  } finally {
+    isLoading.value = false
+  }
 }
 
 onBeforeMount(async () => {

@@ -9,10 +9,14 @@ const { setColumns, columns } = useDataTableHeaders<'projects'>()
 const isLoading = ref(false)
 const getProjects = async () => {
   isLoading.value = true
-  const { data, error } = await supabaseClient.from('projects').select()
-  if (error) console.log(error)
-  isLoading.value = false
-  projects.value = data
+  try {
+    const { data, error } = await supabaseClient.from('projects').select()
+    if (error) console.log(error)
+    projects.value = data
+  } catch (e) {
+  } finally {
+    isLoading.value = false
+  }
 }
 
 onBeforeMount(async () => {
