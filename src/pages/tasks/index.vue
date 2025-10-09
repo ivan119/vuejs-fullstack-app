@@ -27,9 +27,5 @@ await getTasksAndSetColumns()
 </script>
 
 <template>
-  <div>
-    <div v-if="isLoading">⏳ Loading tasks...</div>
-    <DataTable v-else-if="tasks" :columns="columns" :data="tasks" />
-    <div v-else>No tasks found.</div>
-  </div>
+  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
 </template>
