@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -10,6 +11,25 @@ import VueRouter from 'unplugin-vue-router/vite'
 export default defineConfig({
   plugins: [
     VueRouter(),
+    AutoImport({
+      // targets to transform
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+        /\.vue\.[tj]sx?\?vue/, // .vue (vue-loader with experimentalInlineMatchResource enabled)
+        /\.md$/, // .md
+      ],
+      // presets
+      imports: ['vue', 'vue-router'],
+      // Filepath to generate corresponding .d.ts file.
+      // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
+      // Set `false` to disable.
+      dts: true,
+      // Include auto-imported packages in Vite's `optimizeDeps` options
+      // Recommend to enable
+      viteOptimizeDeps: true,
+    }),
     vue({
       template: {
         compilerOptions: {

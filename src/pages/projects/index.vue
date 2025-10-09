@@ -2,7 +2,6 @@
 import { supabaseClient } from '@/lib/supabaseClient.ts'
 import type { Tables } from '../../../database/types.ts'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-import { onBeforeMount, ref } from 'vue'
 import DataTable from '@/components/ui/data-table/DataTable.vue'
 const projects = ref<Tables<'projects'>[] | null>(null)
 const { setColumns, columns } = useDataTableHeaders<'projects'>()

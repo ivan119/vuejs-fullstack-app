@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router'
+import { type RouteLocationNormalizedLoaded } from 'vue-router'
 
 type ProjectRoute = RouteLocationNormalizedLoaded & {
   params: {

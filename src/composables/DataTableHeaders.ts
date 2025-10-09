@@ -1,4 +1,3 @@
-import { h, ref } from 'vue'
 import type { Tables } from '../../database/types.ts'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { supabaseClient } from '@/lib/supabaseClient.ts'
-import { onBeforeMount, ref } from 'vue'
 import type { Tables } from '../../../database/types.ts'
 import DataTable from '@/components/ui/data-table/DataTable.vue'
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
