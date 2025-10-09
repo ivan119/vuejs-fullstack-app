@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import VueRouter from 'unplugin-vue-router/vite'
-
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -21,7 +21,7 @@ export default defineConfig({
         /\.md$/, // .md
       ],
       // presets
-      imports: ['vue', 'vue-router'],
+      imports: ['vue', VueRouterAutoImports],
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
       // Set `false` to disable.
