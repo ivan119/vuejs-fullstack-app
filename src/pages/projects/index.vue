@@ -17,17 +17,13 @@ const getProjects = async () => {
     isLoading.value = false
   }
 }
-
-onBeforeMount(async () => {
+const getProjectsAndSetColumns = async () => {
   await getProjects()
   if (projects.value) setColumns(projects.value, ['id', 'created_at', 'slug'], 'projects')
-})
+}
+await getProjectsAndSetColumns()
 </script>
 
 <template>
-  <div>
-    <div v-if="isLoading">⏳ Loading projects...</div>
-    <DataTable v-else-if="projects" :columns="columns" :data="projects" />
-    <div v-else>No tasks found.</div>
-  </div>
+  <DataTable v-if="projects" :columns="columns" :data="projects" />
 </template>

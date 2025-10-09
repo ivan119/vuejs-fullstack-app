@@ -19,10 +19,11 @@ const getData = async () => {
   }
 }
 
-onBeforeMount(async () => {
+const getTasksAndSetColumns = async () => {
   await getData()
   if (tasks.value?.length) setColumns(tasks.value, blacklist, 'tasks')
-})
+}
+await getTasksAndSetColumns()
 </script>
 
 <template>
