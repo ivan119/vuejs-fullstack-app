@@ -1,13 +1,15 @@
-DROP TABLE IF EXISTS projects;
+drop table if exists projects;
 
-DROP TYPE IF EXISTS current_status;
-CREATE TYPE current_status AS ENUM ('in-progress', 'completed');
+drop type if exists current_status;
+create type current_status as enum ('in-progress', 'completed');
 
-CREATE TABLE projects (
-                          id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-                          created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-                          name TEXT NOT NULL,
-                          slug TEXT UNIQUE NOT NULL,
-                          status current_status DEFAULT 'in-progress' NOT NULL,
-                          collaborators TEXT[] DEFAULT ARRAY[]::VARCHAR[] NOT NULL
+create table
+    projects (
+                 id bigint primary key generated always as identity not null,
+                 created_at timestamptz default now() not null,
+                 name text not null,
+                 slug text unique not null,
+                 description text,
+                 status current_status default 'in-progress' not null,
+                 collaborators text array default array[]::varchar[] not null
 );
