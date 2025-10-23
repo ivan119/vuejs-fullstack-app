@@ -6,17 +6,12 @@ const { columns, setColumns } = useDataTableHeaders<TasksWithProjects[number]>()
 const tasks = ref<TasksWithProjects | null>(null)
 
 const blacklist = ['id', 'created_at', 'description', 'project_id'] as string[]
-const isLoading = ref(true)
 const getData = async () => {
-  isLoading.value = true
-  try {
-    const { data } = await taskWithProjectsQuery
-    tasks.value = data
-  } catch (error) {
-    console.log(error)
-  } finally {
-    isLoading.value = false
+  const { data, error, status } = await taskWithProjectsQuery
+  if (error) {
+    useErrorState().setError({ error, customCode: status })
   }
+  tasks.value = data
 }
 
 const getTasksAndSetColumns = async () => {

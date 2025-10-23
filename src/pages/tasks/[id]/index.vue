@@ -10,8 +10,8 @@ watch(
   },
 )
 const getTask = async () => {
-  const { data, error } = await taskQuery(route.params.id)
-  if (error) console.log(error)
+  const { data, error, status } = await taskQuery(route.params.id)
+  if (error) useErrorState().setError({ error, customCode: status })
   task.value = data
 }
 await getTask()
@@ -19,7 +19,7 @@ console.log(route.params.id)
 </script>
 
 <template>
-  <Table>
+  <Table v-if="task">
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell> {{ task.name }}</TableCell>
