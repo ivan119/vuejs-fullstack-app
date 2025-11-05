@@ -29,10 +29,12 @@ const bottomLinks = [
   },
   {
     title: 'Sign Out',
-    to: '/sign-out',
     icon: 'lucide:log-out',
   },
 ]
+const func = (v: string) => {
+  console.log(23213, v)
+}
 </script>
 
 <template>
@@ -55,7 +57,7 @@ const bottomLinks = [
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SidebarLinks :links="bottomLinks" />
+        <SidebarLinks :links="bottomLinks" @action-clicked="func" />
       </div>
     </nav>
   </aside>

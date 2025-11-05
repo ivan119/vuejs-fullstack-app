@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       { catchAll: ParamValue<false> },
       | never
     >,
+    '/login': RouteRecordInfo<
+      '/login',
+      '/login',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/projects/': RouteRecordInfo<
       '/projects/',
       '/projects',
@@ -56,6 +63,13 @@ declare module 'vue-router/auto-routes' {
       '/projects/:slug',
       { slug: ParamValue<true> },
       { slug: ParamValue<false> },
+      | never
+    >,
+    '/register': RouteRecordInfo<
+      '/register',
+      '/register',
+      Record<never, never>,
+      Record<never, never>,
       | never
     >,
     '/tasks/': RouteRecordInfo<
@@ -97,6 +111,12 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
+    'src/pages/login.vue': {
+      routes:
+        | '/login'
+      views:
+        | never
+    }
     'src/pages/projects/index.vue': {
       routes:
         | '/projects/'
@@ -112,6 +132,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/projects/[slug]/index.vue': {
       routes:
         | '/projects/[slug]/'
+      views:
+        | never
+    }
+    'src/pages/register.vue': {
+      routes:
+        | '/register'
       views:
         | never
     }
