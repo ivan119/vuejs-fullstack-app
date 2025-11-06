@@ -4,6 +4,9 @@ const errorStore = useErrorState()
 onErrorCaptured((error) => {
   errorStore.setError({ error })
 })
+onMounted(() => {
+  useAuthStore().trackAuthChanges()
+})
 </script>
 
 <template>
