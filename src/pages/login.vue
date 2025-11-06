@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { supabaseClient } from '@/lib/supabaseClient.ts'
 import { login } from '@/utils/supaAuth.ts'
 
 const formData = ref({

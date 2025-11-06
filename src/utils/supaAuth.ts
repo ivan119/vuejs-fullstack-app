@@ -31,3 +31,10 @@ export const login = async (formData: LoginForm) => {
   await authStore.setAuth(data.session)
   return true
 }
+
+export const logout = async () => {
+  const { error } = await supabaseClient.auth.signOut()
+  if (error) return console.error('Logout Error', error)
+  await authStore.setAuth()
+  return true
+}
