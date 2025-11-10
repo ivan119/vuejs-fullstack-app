@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-import { projectsWithProjectsQuery, type Projects } from '@/utils/supaQueries'
-const projects = ref<Projects | null>(null)
+import { useProjectsStore } from '@/stores/loaders/projects.ts'
+import type { Projects } from '@/utils/supaQueries.ts'
+
 const { setColumns, columns } = useDataTableHeaders<Projects[number]>()
 
 usePageStore().pageData.title = 'Projects'
-const getProjects = async () => {
-  const { data, error, status } = await projectsWithProjectsQuery
-  if (error) useErrorState().setError({ error, customCode: status })
-  projects.value = data
-}
+const projectsLoader = useProjectsStore()
+const { projects } = storeToRefs(projectsLoader)
+const { getProjects } = projectsLoader
 const getProjectsAndSetColumns = async () => {
   await getProjects()
   if (projects.value) setColumns(projects.value, ['id', 'created_at', 'slug'], 'projects')
