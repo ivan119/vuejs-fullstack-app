@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { projectQuery, type Project } from '@/utils/supaQueries'
-const route = useRoute('/projects/[slug]/')
-const project = ref<Project | null>(null)
+const { slug } = useRoute('/projects/[slug]/').params
+const projectLoader = useProjectsStore()
+const { project } = storeToRefs(projectLoader)
+const { getProject } = projectLoader
 watch(
   () => project.value?.name,
   () => {
     usePageStore().pageData.title = `Project: ${project.value?.name || ''}`
   },
 )
-const getProject = async () => {
-  const { data, error, status } = await projectQuery(route.params.slug)
-  if (error) useErrorState().setError({ error, customCode: status })
-  project.value = data
-}
-await getProject()
+await getProject(slug)
 </script>
 <template>
   <section v-if="project">
