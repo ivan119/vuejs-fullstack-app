@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import { useDataTableHeaders } from '@/composables/DataTableHeaders.ts'
-import { taskWithProjectsQuery, type TasksWithProjects } from '@/utils/supaQueries'
-usePageStore().pageData.title = 'My Tasks'
-const { columns, setColumns } = useDataTableHeaders<TasksWithProjects[number]>()
-const tasks = ref<TasksWithProjects | null>(null)
+import { tasksWithProjectsQuery } from '@/utils/supaQueries'
+import { columns } from '@/utils/tableColumns/tasksColumns'
+import type { TasksWithProjects } from '@/utils/supaQueries'
 
-const blacklist = ['id', 'created_at', 'description', 'project_id'] as string[]
-const getData = async () => {
-  const { data, error, status } = await taskWithProjectsQuery
-  if (error) {
-    useErrorState().setError({ error, customCode: status })
-  }
+usePageStore().pageData.title = 'My Tasks'
+
+const tasks = ref<TasksWithProjects | null>(null)
+const getTasks = async () => {
+  const { data, error, status } = await tasksWithProjectsQuery
+
+  if (error) useErrorStore().setError({ error, customCode: status })
+
   tasks.value = data
 }
 
-const getTasksAndSetColumns = async () => {
-  await getData()
-  if (tasks.value?.length) setColumns(tasks.value, blacklist, 'tasks')
-}
-await getTasksAndSetColumns()
+await getTasks()
 </script>
 
 <template>
