@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     }
     if (!profile.value || profile.value?.id !== user.value?.id) {
       // fetch profile
-      const { data } = await profileQuery(user.value.id)
+      const { data } = await profileQuery({ column: 'id', value: user?.value?.id })
 
       profile.value = data || null
     }
@@ -38,7 +38,6 @@ export const useAuthStore = defineStore('auth-store', () => {
   const trackAuthChanges = () => {
     if (isTrackingAuthChanges.value) return
     isTrackingAuthChanges.value = true
-    console.log(1111, 'test hook')
     supabaseClient.auth.onAuthStateChange((event, session) => {
       setTimeout(async () => {
         await useAuthStore().setAuth(session)
