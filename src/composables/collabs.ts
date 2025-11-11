@@ -18,7 +18,6 @@ export const useCollabs = () => {
     filteredItems.forEach((item, index) => {
       groupedCollabs.value[item.id] = results[index]
     })
-    console.log(groupedCollabs.value, 'wtf')
   }
   return {
     getProfilesByIds,
