@@ -2,7 +2,7 @@
 const { slug } = useRoute('/projects/[slug]/').params
 const projectLoader = useProjectsStore()
 const { project } = storeToRefs(projectLoader)
-const { getProject } = projectLoader
+const { getProject, updateProject } = projectLoader
 watch(
   () => project.value?.name,
   () => {
@@ -16,17 +16,19 @@ await getProject(slug)
     <Table>
       <TableRow>
         <TableHead> Name </TableHead>
-        <TableCell> {{ project.name }} </TableCell>
+        <TableCell>
+          <AppInPlaceEditText v-model="project.name" @commit="updateProject" />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Project Description </TableHead>
         <TableCell>
-          {{ project.description }}
+          <AppInPlaceEditText v-model="project.description" @commit="updateProject" />
         </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Status </TableHead>
-        <TableCell>{{ project.status }}</TableCell>
+        <TableCell><AppInPlaceEditStatus v-model="project.status" /></TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Collaborators </TableHead>

@@ -20,6 +20,11 @@ id,name,status,due_date)`,
 // Single Project Type
 export type Project = QueryData<ReturnType<typeof projectQuery>>
 
+// Update Project
+export const updateProjectQuery = (updatedProject = {}, id: number) => {
+  return supabaseClient.from('projects').update(updatedProject).eq('id', id)
+}
+
 // Single Task Query
 export const taskQuery = (id: string) =>
   supabaseClient.from('tasks').select(`*, projects(id, name, slug)`).eq('id', id).single()

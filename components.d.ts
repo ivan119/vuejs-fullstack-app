@@ -15,6 +15,8 @@ declare module 'vue' {
     AppErrorPage: typeof import('./src/components/AppError/AppErrorPage.vue')['default']
     AppErrorProduction: typeof import('./src/components/AppError/AppErrorProduction.vue')['default']
     AppErrorProductionSection: typeof import('./src/components/AppError/AppErrorProductionSection.vue')['default']
+    AppInPlaceEditStatus: typeof import('./src/components/AppInPlaceEdit/AppInPlaceEditStatus.vue')['default']
+    AppInPlaceEditText: typeof import('./src/components/AppInPlaceEdit/AppInPlaceEditText.vue')['default']
     AuthLayout: typeof import('./src/components/Layout/main/AuthLayout.vue')['default']
     Avatar: typeof import('./src/components/ui/avatar/Avatar.vue')['default']
     AvatarFallback: typeof import('./src/components/ui/avatar/AvatarFallback.vue')['default']
@@ -59,6 +61,7 @@ declare module 'vue' {
     TableHead: typeof import('./src/components/ui/table/TableHead.vue')['default']
     TableHeader: typeof import('./src/components/ui/table/TableHeader.vue')['default']
     TableRow: typeof import('./src/components/ui/table/TableRow.vue')['default']
+    Text: typeof import('./src/components/AppInPlaceEdit/Text.vue')['default']
     TopNavbar: typeof import('./src/components/Layout/TopNavbar.vue')['default']
   }
 }
