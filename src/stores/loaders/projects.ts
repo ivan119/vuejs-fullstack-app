@@ -11,6 +11,7 @@ export const useProjectsStore = defineStore('projects-store', () => {
   const projects = ref<Projects | null>(null)
 
   const loadProject = useMemoize(async (slug: string) => await projectQuery(slug))
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadProjects = useMemoize(async (key: string) => await projectsWithProjectsQuery)
 
   interface ValidateCacheParams {
@@ -26,10 +27,10 @@ export const useProjectsStore = defineStore('projects-store', () => {
       const finalQuery = typeof query === 'function' ? query(key) : query
       finalQuery.then(({ data, error }) => {
         if (JSON.stringify(data) === JSON.stringify(ref.value)) {
-          console.log('cached and mateched data are same')
+          console.log('cached and matched data are same')
           return
         } else {
-          console.log('cached and mateched data have missmatched')
+          console.log('cached and matched data have mismatched')
           loaderFn.delete(key)
           if (!error && data) ref.value = data
         }
