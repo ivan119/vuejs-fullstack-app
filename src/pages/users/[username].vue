@@ -2,6 +2,7 @@
 import { profileQuery } from '@/utils/supaQueries.ts'
 import type { Tables } from '../../../database/types.ts'
 import { useErrorState } from '@/stores/error'
+import { usePageStore } from '@/stores/page.ts'
 
 const { username } = useRoute('/users/[username]').params
 const profile = ref<Tables<'profiles'> | null>()
@@ -10,6 +11,7 @@ const getProfile = async () => {
   if (error) useErrorState().setError({ error: error.message, customCode: status })
   profile.value = data
 }
+usePageStore().pageData.title = ''
 await getProfile()
 </script>
 
