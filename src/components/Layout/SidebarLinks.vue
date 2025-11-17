@@ -14,6 +14,7 @@ const emits = defineEmits<{
 const emitActionClicked = (linkTitle: string): void => {
   emits('actionClicked', linkTitle)
 }
+const { menuOpen } = useMenu()
 </script>
 <template>
   <template v-for="link in links" :key="link.title">
@@ -21,18 +22,24 @@ const emitActionClicked = (linkTitle: string): void => {
       v-if="link.to"
       :to="link.to"
       active-class="text-primary bg-muted"
-      class="flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary justify-center lg:justify-normal text-muted-foreground"
+      :class="{ 'justify-normal': menuOpen, 'justify-center': !menuOpen }"
+      class="flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary text-muted-foreground"
     >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span :class="{ block: menuOpen, hidden: !menuOpen }" class="text-nowrap">{{
+        link.title
+      }}</span>
     </RouterLink>
     <div
       v-else
-      class="flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary justify-center lg:justify-normal text-muted-foreground cursor-pointer"
+      :class="{ 'justify-normal': menuOpen, 'justify-center': !menuOpen }"
+      class="flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary text-muted-foreground cursor-pointer"
       @click="emitActionClicked(link.title)"
     >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span :class="{ block: menuOpen, hidden: !menuOpen }" class="text-nowrap">{{
+        link.title
+      }}</span>
     </div>
   </template>
 </template>
