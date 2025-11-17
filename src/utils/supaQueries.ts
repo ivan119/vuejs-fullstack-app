@@ -50,3 +50,7 @@ export type Collabs = QueryData<ReturnType<typeof groupedProfilesQuery>>
 export const createNewTaskQuery = (newTask: CreateNewTask) => {
   return supabaseClient.from('tasks').insert(newTask)
 }
+
+export const deleteTaskQuery = (id: number) => {
+  return supabaseClient.from('tasks').delete().eq('id', id)
+}

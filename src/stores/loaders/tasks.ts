@@ -1,4 +1,5 @@
 import {
+  deleteTaskQuery,
   type Task,
   taskQuery,
   type TasksWithProjects,
@@ -69,11 +70,17 @@ export const useTasksStore = defineStore('tasks-store', () => {
     const { id, projects, ...taskProperties } = task.value
     await updateTaskQuery(taskProperties, task.value.id)
   }
+  // Delete Task
+  const deleteTask = async () => {
+    if (!task.value) return
+    await deleteTaskQuery(task.value.id)
+  }
   return {
     task,
     tasks,
     updateTask,
     getTask,
     getTasks,
+    deleteTask,
   }
 })
