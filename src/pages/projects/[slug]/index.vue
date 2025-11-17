@@ -10,12 +10,11 @@ watch(
   },
 )
 await getProject(slug)
-const { getProfilesByIds } = useCollabs()
+const { nonAsyncGetProfilesByIds, collabs } = useCollabs()
 
-const collabs = project.value?.collaborators
-  ? await getProfilesByIds(project.value.collaborators)
-  : []
-console.log(collabs, 'collabs')
+onMounted(() => {
+  if (project.value?.collaborators) nonAsyncGetProfilesByIds(project.value.collaborators)
+})
 </script>
 <template>
   <section v-if="project">
