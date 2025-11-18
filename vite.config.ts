@@ -30,6 +30,9 @@ export default defineConfig({
         {
           pinia: ['defineStore', 'storeToRefs', 'acceptHMRUpdate'],
         },
+        {
+          'vue-meta': ['useMeta'],
+        },
       ],
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.

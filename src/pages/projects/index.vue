@@ -14,6 +14,12 @@ const { getGroupedCollabs, groupedCollabs } = useCollabs()
 getGroupedCollabs(projects.value ?? [])
 
 const columnsWithCollabs = columns(groupedCollabs)
+useMeta({
+  title: 'Projects',
+  description: {
+    content: `Projects descriptions`,
+  },
+})
 </script>
 
 <template>
