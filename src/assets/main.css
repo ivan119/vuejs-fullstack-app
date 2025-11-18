@@ -130,3 +130,12 @@
 .scale-leave-to {
   transform: scale(0.369);
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity:0;
+}
