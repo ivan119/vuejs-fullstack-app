@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { type MenuInjectionOptions, menuKey } from '@/utils/injectionKeys.ts'
+
 interface linkProp {
   title: string
   to?: string
@@ -14,7 +16,7 @@ const emits = defineEmits<{
 const emitActionClicked = (linkTitle: string): void => {
   emits('actionClicked', linkTitle)
 }
-const { menuOpen } = useMenu()
+const { menuOpen } = inject(menuKey) as MenuInjectionOptions
 </script>
 <template>
   <template v-for="link in links" :key="link.title">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core'
-
+import { menuKey, type MenuInjectionOptions } from '@/utils/injectionKeys.ts'
 const links = [
   {
     title: 'Dashboard',
@@ -34,7 +34,6 @@ const bottomLinks = [
     icon: 'lucide:log-out',
   },
 ]
-
 const router = useRouter()
 const executeAction = async (linkTitle: string) => {
   if (linkTitle === 'Sign Out') {
@@ -48,7 +47,7 @@ const executeAction = async (linkTitle: string) => {
 }
 defineEmits(['taskClicked'])
 
-const { menuOpen, toggleMenu } = useMenu()
+const { menuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions
 
 const windowWidth = useWindowSize().width
 

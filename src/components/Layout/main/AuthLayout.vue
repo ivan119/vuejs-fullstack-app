@@ -1,7 +1,16 @@
 <script setup lang="ts">
+import { menuKey } from '@/utils/injectionKeys.ts'
+
 const { pageData } = storeToRefs(usePageStore())
 const taskSheetOpen = ref(false)
-const { menuOpen, toggleMenu } = useMenu()
+const menuOpen = ref(false)
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+provide(menuKey, {
+  menuOpen,
+  toggleMenu,
+})
 </script>
 <template>
   <Sidebar @taskClicked="taskSheetOpen = true" />
