@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { supabaseClient } from '@/lib/supabaseClient.ts'
-import type { Tables } from '../../../database/types.ts'
-import { ref } from 'vue'
-const projects = ref<Tables<'projects'>[] | null>(null)
+import { columns } from '@/utils/tableColumns/projectsColumns'
 
-;(async () => {
-  const { data, error } = await supabaseClient.from('projects').select()
-  if (error) console.log(error)
-  projects.value = data
-})()
+usePageStore().pageData.title = 'Projects'
+
+const projectsLoader = useProjectsStore()
+const { projects } = storeToRefs(projectsLoader)
+const { getProjects } = projectsLoader
+
+await getProjects()
+
+const { getGroupedCollabs, groupedCollabs } = useCollabs()
+
+getGroupedCollabs(projects.value ?? [])
+
+const columnsWithCollabs = columns(groupedCollabs)
+useMeta({
+  title: 'Projects',
+  description: {
+    content: `Projects descriptions`,
+  },
+})
 </script>
 
 <template>
-  <h1>Projects View</h1>
-  <RouterLink to="/">Go to HomeView</RouterLink>
-  <ul>
-    <li v-for="project in projects" :key="project.id">{{ project.name }}</li>
-  </ul>
+  <DataTable v-if="projects" :columns="columnsWithCollabs" :data="projects" />
 </template>

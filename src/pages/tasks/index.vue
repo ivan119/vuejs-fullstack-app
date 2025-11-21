@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { supabaseClient } from '@/lib/supabaseClient.ts'
-import type { Tables } from '../../../database/types.ts'
-import { ref } from 'vue'
-const tasks = ref<Tables<'tasks'>[] | null>(null)
+import { columns } from '@/utils/tableColumns/tasksColumns'
+import { useTasksStore } from '@/stores/loaders/tasks.ts'
 
-;(async () => {
-  const { data, error } = await supabaseClient.from('tasks').select()
-  if (error) console.log(error)
-  tasks.value = data
-})()
+usePageStore().pageData.title = 'My Tasks'
+
+const { getGroupedCollabs, groupedCollabs } = useCollabs()
+
+const defineTasks = useTasksStore()
+const { tasks } = storeToRefs(defineTasks)
+const { getTasks } = defineTasks
+
+await getTasks()
+getGroupedCollabs(tasks.value ?? [])
+const columnsWithCollabs = columns(groupedCollabs)
 </script>
 
 <template>
-  <h1>Tasks View</h1>
-  <RouterLink to="/">Go to HomeView</RouterLink>
-  <ul>
-    <li v-for="task in tasks" :key="task.id">{{ task.name }}</li>
-  </ul>
+  <DataTable v-if="tasks" :columns="columnsWithCollabs" :data="tasks" />
 </template>
